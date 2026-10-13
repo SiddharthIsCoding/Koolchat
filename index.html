@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign Up — MyWebApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    color:#111;background:#fff;-webkit-font-smoothing:antialiased;
+  }
+
+  .page{
+    --w:min(400px,80vw);
+    position:relative;isolation:isolate;overflow:hidden;
+    min-height:100vh;min-height:100dvh;
+    display:flex;flex-direction:column;
+  }
+
+  /* ---------- Blurry gradient background ---------- */
+  .bg{
+    position:absolute;inset:-40px;z-index:-1;filter:blur(26px);
+    background:
+      linear-gradient(to top,rgba(255,255,255,.6),rgba(255,255,255,0) 9%),
+      radial-gradient(ellipse 30% 17% at 98% 20%,rgba(253,214,110,.95) 0%,rgba(253,220,140,.55) 45%,rgba(253,220,140,0) 100%),
+      radial-gradient(ellipse 40% 24% at 100% 78%,rgba(252,170,122,.95) 0%,rgba(252,190,150,.6) 50%,rgba(252,190,150,0) 100%),
+      radial-gradient(ellipse 30% 20% at 52% 94%,rgba(116,148,158,.85) 0%,rgba(140,168,176,.45) 55%,rgba(140,168,176,0) 100%),
+      radial-gradient(ellipse 62% 40% at 0% 82%,rgba(86,102,110,1) 0%,rgba(98,114,122,.92) 30%,rgba(122,140,148,.5) 62%,rgba(150,165,170,0) 100%),
+      #fff;
+  }
+
+  /* ---------- Header ---------- */
+  .top{
+    position:relative;display:flex;align-items:center;justify-content:space-between;
+    padding:22px 20px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#0b0b0b;font-weight:700;font-size:19px;letter-spacing:-.01em}
+  .logo{
+    width:38px;height:38px;border-radius:10px;background:#2f7dff;display:grid;place-items:center;
+    box-shadow:0 4px 10px -2px rgba(47,125,255,.45);
+  }
+  .logo svg{width:21px;height:21px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  .switch{
+    text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:600;
+    padding:9px 18px;border-radius:999px;transition:transform .2s,box-shadow .2s;
+  }
+  .switch:hover{transform:translateY(-1px)}
+
+  @media (min-width:720px){
+    .top{justify-content:center;padding:26px 32px}
+    .switch{position:absolute;right:32px;top:50%;transform:translateY(-50%)}
+    .switch:hover{transform:translateY(calc(-50% - 1px))}
+  }
+
+  /* ---------- Glass ---------- */
+  .glass{
+    background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.26));
+    -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
+    border:1px solid rgba(255,255,255,.78);
+    box-shadow:
+      0 8px 18px -6px rgba(20,30,40,.30),
+      0 1px 3px rgba(20,30,40,.14),
+      inset 0 2px 3px rgba(255,255,255,.95),
+      inset 0 -4px 9px rgba(30,40,50,.12);
+  }
+
+  /* ---------- Main ---------- */
+  .main{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:0 20px 14vh;
+  }
+  .title{
+    font-family:Georgia,'Source Serif 4','Times New Roman',serif;
+    font-weight:400;letter-spacing:-.025em;line-height:1.1;color:#0b0b0b;
+    font-size:clamp(28px,7.4vw,72px);
+  }
+  .sub{margin-top:clamp(18px,2.4vw,28px);font-size:clamp(14px,1.6vw,16px);font-weight:500;color:#6b7078}
+
+  .providers{
+    margin-top:clamp(16px,2vw,22px);display:flex;gap:12px;justify-content:center;
+    width:calc(var(--w) * .78);
+  }
+  .btn{
+    flex:1;height:50px;border-radius:999px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    font:600 14.5px 'Inter',sans-serif;color:#141414;padding:0 8px;
+    transition:transform .2s,box-shadow .2s;
+  }
+  .btn svg{width:21px;height:21px;flex:none}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:scale(.97)}
+  @media (min-width:720px){.btn{height:54px;font-size:15px}.providers{gap:20px}}
+
+  .or{
+    margin-top:clamp(22px,2.6vw,30px);width:var(--w);
+    display:flex;align-items:center;gap:16px;color:#6b7078;font-size:13px;font-weight:600;
+  }
+  .or::before,.or::after{content:"";flex:1;height:1px}
+  .or::before{background:linear-gradient(to right,rgba(0,0,0,0),rgba(0,0,0,.2))}
+  .or::after{background:linear-gradient(to left,rgba(0,0,0,0),rgba(0,0,0,.2))}
+
+  .email{
+    margin-top:clamp(26px,3.4vw,38px);position:relative;width:var(--w);height:62px;border-radius:999px;
+    display:flex;align-items:center;gap:14px;padding:0 9px 0 22px;
+    transition:box-shadow .25s;
+  }
+  .email:focus-within{
+    box-shadow:
+      0 8px 22px -6px rgba(20,30,40,.35),
+      0 0 0 3px rgba(255,255,255,.7),
+      inset 0 2px 3px rgba(255,255,255,.95),
+      inset 0 -4px 9px rgba(30,40,50,.12);
+  }
+  .email .mail{width:22px;height:22px;flex:none;stroke:#222;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .email input{
+    flex:1;min-width:0;height:100%;border:0;outline:0;background:transparent;
+    font:500 16px 'Inter',sans-serif;color:#111;
+  }
+  .email input::placeholder{color:#5c6169;font-weight:500}
+  .go{
+    width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;flex:none;
+    display:grid;place-items:center;color:#111;
+    background:linear-gradient(180deg,#fff,rgba(255,255,255,.7));
+    box-shadow:0 3px 8px rgba(20,30,40,.25),inset 0 1px 2px #fff;
+    opacity:0;transform:scale(.7) translateX(8px);pointer-events:none;
+    transition:opacity .25s,transform .25s;
+  }
+  .go svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .email.has-value .go{opacity:1;transform:none;pointer-events:auto}
+  .go:hover{transform:scale(1.06)!important}
+  .email.shake{animation:shake .4s}
+  @keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;
+    background:rgba(17,17,17,.9);color:#fff;font-size:14px;font-weight:500;
+    padding:12px 20px;border-radius:999px;pointer-events:none;z-index:10;
+    transition:opacity .3s,transform .3s;max-width:90vw;text-align:center;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- Entrance ---------- */
+  .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .title.in{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+  @media (prefers-reduced-motion:reduce){.rise,.title.in{animation:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="brand rise" href="#signup" aria-label="MyWebApp home">
+      <span class="logo">
+        <svg viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+      </span>
+      <span>MyWebApp</span>
+    </a>
+    <a class="switch glass rise" id="switchLink" href="#login" style="--d:.1s">Log in</a>
+  </header>
+
+  <main class="main">
+    <h1 class="title rise" id="title" style="--d:.1s">Get started with Us</h1>
+    <p class="sub rise" style="--d:.2s">Continue with</p>
+
+    <div class="providers rise" style="--d:.3s">
+      <button class="glass btn" type="button" data-provider="Google">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Google
+      </button>
+      <button class="glass btn" type="button" data-provider="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </button>
+    </div>
+
+    <div class="or rise" style="--d:.4s">OR</div>
+
+    <form class="email glass rise" id="form" style="--d:.5s" novalidate>
+      <svg class="mail" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <input id="email" type="email" name="email" placeholder="Email" autocomplete="email" aria-label="Email address">
+      <button class="go" type="submit" aria-label="Continue with email">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </form>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const modes = {
+    signup: { title: 'Get started with Us', other: 'Log in',  otherHash: '#login',  doc: 'Sign Up — MyWebApp' },
+    login:  { title: 'Welcome back',        other: 'Sign up', otherHash: '#signup', doc: 'Log In — MyWebApp' }
+  };
+
+  const titleEl  = document.getElementById('title');
+  const switchEl = document.getElementById('switchLink');
+  const form     = document.getElementById('form');
+  const input    = document.getElementById('email');
+  const toastEl  = document.getElementById('toast');
+  let current = null, toastTimer;
+
+  function setMode(m){
+    if(!modes[m]) m = 'signup';
+    if(m === current) return;
+    const first = current === null;
+    current = m;
+    const c = modes[m];
+    titleEl.textContent = c.title;
+    switchEl.textContent = c.other;
+    switchEl.setAttribute('href', c.otherHash);
+    document.title = c.doc;
+    if(!first){
+      titleEl.classList.remove('rise'); titleEl.classList.remove('in');
+      void titleEl.offsetWidth;
+      titleEl.classList.add('in');
+    }
+  }
+
+  function modeFromHash(){ return location.hash === '#login' ? 'login' : 'signup'; }
+  window.addEventListener('hashchange', () => setMode(modeFromHash()));
+  setMode(modeFromHash());
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  input.addEventListener('input', () => form.classList.toggle('has-value', input.value.trim().length > 0));
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const v = input.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+      form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
+      toast('Please enter a valid email');
+      return;
+    }
+    toast('Demo only — no backend connected');
+  });
+
+  document.querySelectorAll('[data-provider]').forEach(b =>
+    b.addEventListener('click', () => toast(b.dataset.provider + ' — demo only, no backend connected'))
+  );
+</script>
+</body>
+</html>
