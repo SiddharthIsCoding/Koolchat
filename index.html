@@ -2,557 +2,181 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign Up — Koolchat</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KoolChat | Login & Sign Up</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-    color:#111;background:#fff;-webkit-font-smoothing:antialiased;
-  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    min-height: 100vh;
+    background: #fffefe;
+    color: #222;
+}
+.topbar {
+    width: 100%;
+    height: 70px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
+.logo {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #222;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 21px;
+    font-weight: bold;
+}
+.brand-name {
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+main {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+}
+.container {
+    width: min(350px, 100%);
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #222;
+}
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #444;
+    font-size: 14px;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+}
+input:focus {
+    border-color: #333;
+}
+.logo {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%; /* agar gol logo chahiye to */
+}
 
-  .page{
-    --w:min(400px,80vw);
-    position:relative;isolation:isolate;overflow:hidden;
-    min-height:100vh;min-height:100dvh;
-    display:flex;flex-direction:column;
-  }
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
-  /* ---------- Blurry gradient background (slowly drifting) ---------- */
-  .bg{
-    position:absolute;inset:-40px;z-index:-2;filter:blur(26px);
-    background:
-      linear-gradient(to top,rgba(255,255,255,.6),rgba(255,255,255,0) 9%),
-      radial-gradient(ellipse 30% 17% at 98% 20%,rgba(253,214,110,.95) 0%,rgba(253,220,140,.55) 45%,rgba(253,220,140,0) 100%),
-      radial-gradient(ellipse 40% 24% at 100% 78%,rgba(252,170,122,.95) 0%,rgba(252,190,150,.6) 50%,rgba(252,190,150,0) 100%),
-      radial-gradient(ellipse 30% 20% at 52% 94%,rgba(116,148,158,.85) 0%,rgba(140,168,176,.45) 55%,rgba(140,168,176,0) 100%),
-      radial-gradient(ellipse 62% 40% at 0% 82%,rgba(86,102,110,1) 0%,rgba(98,114,122,.92) 30%,rgba(122,140,148,.5) 62%,rgba(150,165,170,0) 100%),
-      #fff;
-    animation:drift 22s ease-in-out infinite alternate;
-  }
-  @keyframes drift{
-    from{transform:translate3d(-1.5%,1%,0) scale(1.04)}
-    to{transform:translate3d(1.5%,-1.2%,0) scale(1.09)}
-  }
-
-  /* ---------- Floating chat bubbles ---------- */
-  .bubbles{
-    position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;
-    animation:fade 1.6s ease both;
-  }
-  @keyframes fade{from{opacity:0}to{opacity:1}}
-  .bubble{
-    position:absolute;left:var(--x);top:100%;margin-top:70px;
-    will-change:transform,opacity;
-    animation:floatUp var(--dur) linear var(--delay) infinite;
-  }
-  @keyframes floatUp{
-    0%{transform:translateY(0);opacity:0}
-    8%{opacity:var(--o)}
-    88%{opacity:var(--o)}
-    100%{transform:translateY(calc(var(--travel,110vh) * -1));opacity:0}
-  }
-  .sway{
-    display:flex;align-items:flex-end;gap:8px;
-    scale:var(--s);filter:blur(var(--bl));
-    animation:sway var(--swd) ease-in-out infinite alternate;
-  }
-  @keyframes sway{
-    from{transform:translateX(calc(var(--sway) * -1)) rotate(-2deg)}
-    to{transform:translateX(var(--sway)) rotate(2deg)}
-  }
-  .msg{
-    padding:11px 16px;border-radius:20px;white-space:nowrap;
-    font:500 14px/1.3 'Inter',sans-serif;
-    box-shadow:0 10px 22px -10px rgba(20,30,40,.4);
-  }
-  .msg.them{
-    background:rgba(255,255,255,.8);color:#23262b;border:1px solid rgba(255,255,255,.95);
-    border-bottom-left-radius:6px;
-  }
-  .msg.me{
-    background:linear-gradient(135deg,rgba(63,139,255,.92),rgba(47,109,240,.92));color:#fff;
-    border-bottom-right-radius:6px;
-  }
-  .msg .tick{margin-left:8px;font-size:11px;opacity:.85;letter-spacing:-2px}
-  .msg.react{
-    width:50px;height:50px;padding:0;display:grid;place-items:center;border-radius:50%;
-    background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);font-size:24px;
-  }
-  .msg.typing{display:flex;gap:5px;padding:15px 17px}
-  .msg.typing i{width:7px;height:7px;border-radius:50%;background:#5b6068;animation:dot 1.2s infinite ease-in-out}
-  .msg.typing i:nth-child(2){animation-delay:.15s}
-  .msg.typing i:nth-child(3){animation-delay:.3s}
-  @keyframes dot{0%,60%,100%{transform:none;opacity:.45}30%{transform:translateY(-5px);opacity:1}}
-  .msg.skel{display:flex;flex-direction:column;gap:7px;padding:14px 16px}
-  .msg.skel b{display:block;height:8px;border-radius:4px;background:rgba(35,38,43,.18)}
-  .msg.me.skel b{background:rgba(255,255,255,.65)}
-  .av{
-    width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;
-    color:#fff;font:600 12px 'Inter',sans-serif;box-shadow:0 4px 10px -4px rgba(0,0,0,.35);
-  }
-
-  /* ---------- Header ---------- */
-  .top{
-    position:relative;display:flex;align-items:center;justify-content:space-between;
-    padding:22px 20px;
-  }
-  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#0b0b0b;font-weight:700;font-size:19px;letter-spacing:-.01em}
-  .logo{
-    width:38px;height:38px;border-radius:10px;background:#2f7dff;display:grid;place-items:center;
-    box-shadow:0 4px 10px -2px rgba(47,125,255,.45);
-    transition:transform .35s cubic-bezier(.3,1.6,.5,1);
-  }
-  .brand:hover .logo{transform:rotate(-8deg) scale(1.08)}
-  .logo svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .logo .d{fill:#fff;stroke:none;transform-box:fill-box;transform-origin:center;animation:pulse 1.5s infinite ease-in-out}
-  .logo .d:nth-of-type(2){animation-delay:.18s}
-  .logo .d:nth-of-type(3){animation-delay:.36s}
-  @keyframes pulse{0%,60%,100%{opacity:.5;transform:none}30%{opacity:1;transform:translateY(-1.6px)}}
-
-  .switch-wrap{display:flex;align-items:center}
-  .switch{
-    display:inline-block;text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:600;
-    padding:9px 18px;border-radius:999px;transition:transform .2s,box-shadow .2s;
-  }
-  .switch:hover{transform:translateY(-1px)}
-  @media (min-width:720px){
-    .top{justify-content:center;padding:26px 32px}
-    .switch-wrap{position:absolute;right:32px;top:0;bottom:0}
-  }
-
-  /* ---------- Glass ---------- */
-  .glass{
-    background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.26));
-    -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
-    border:1px solid rgba(255,255,255,.78);
-    box-shadow:
-      0 8px 18px -6px rgba(20,30,40,.30),
-      0 1px 3px rgba(20,30,40,.14),
-      inset 0 2px 3px rgba(255,255,255,.95),
-      inset 0 -4px 9px rgba(30,40,50,.12);
-  }
-
-  /* ---------- Main ---------- */
-  .main{
-    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:10px 20px 8vh;
-  }
-  .title{
-    font-family:Georgia,'Source Serif 4','Times New Roman',serif;
-    font-weight:400;letter-spacing:-.025em;line-height:1.1;color:#0b0b0b;
-    font-size:clamp(28px,7.4vw,68px);
-  }
-  .title .w{display:inline-block}
-  .sub{
-    margin-top:clamp(14px,2vw,22px);max-width:min(88vw,460px);
-    font-size:clamp(14px,1.6vw,16px);font-weight:500;color:#5f646c;line-height:1.45;
-  }
-
-  /* ---------- Form ---------- */
-  .form{width:var(--w);margin-top:clamp(24px,3.2vw,34px)}
-  .fgroup{display:flex;flex-direction:column;align-items:flex-start;width:100%}
-  .fgroup + .fgroup{margin-top:14px}
-
-  .field{
-    width:100%;height:60px;border-radius:999px;cursor:text;
-    display:flex;align-items:center;gap:14px;padding:0 8px 0 22px;
-    transition:box-shadow .25s;
-  }
-  .field:focus-within{
-    box-shadow:
-      0 8px 22px -6px rgba(20,30,40,.35),
-      0 0 0 3px rgba(255,255,255,.7),
-      inset 0 2px 3px rgba(255,255,255,.95),
-      inset 0 -4px 9px rgba(30,40,50,.12);
-  }
-  .field .lead{
-    width:22px;height:22px;flex:none;stroke:#222;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
-    transition:stroke .25s,transform .25s;
-  }
-  .field:focus-within .lead{stroke:#2f7dff;transform:scale(1.1)}
-  .field input{
-    flex:1;min-width:0;height:100%;border:0;outline:0;background:transparent;
-    font:500 16px 'Inter',sans-serif;color:#111;
-  }
-  .field input::placeholder{color:#5c6169;font-weight:500}
-  .field input:-webkit-autofill{
-    -webkit-text-fill-color:#111;transition:background-color 99999s;
-  }
-  .eye{
-    width:42px;height:42px;border:0;border-radius:50%;background:none;cursor:pointer;flex:none;
-    display:grid;place-items:center;color:#333;transition:background .2s;
-  }
-  .eye:hover{background:rgba(255,255,255,.55)}
-  .eye svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .eye .off{display:none}
-  .field.revealed .eye .on{display:none}
-  .field.revealed .eye .off{display:block}
-
-  .hint{
-    width:fit-content;margin-left:18px;max-height:0;padding:0 12px;opacity:0;overflow:hidden;
-    border-radius:999px;background:rgba(255,255,255,.92);color:#b42318;
-    font-size:13px;font-weight:500;text-align:left;
-    transition:max-height .25s,opacity .25s,padding .25s,margin .25s;
-  }
-  .hint.show{max-height:30px;padding:4px 12px;margin-top:8px;opacity:1}
-
-  .row{
-    display:flex;justify-content:flex-end;overflow:hidden;
-    max-height:34px;margin-top:10px;opacity:1;
-    transition:max-height .35s,margin .35s,opacity .35s;
-  }
-  .row.hidden{max-height:0;margin-top:0;opacity:0;pointer-events:none}
-  .forgot{
-    font-size:13.5px;font-weight:600;color:#26292e;text-decoration:none;padding:2px 6px;
-    background-image:linear-gradient(currentColor,currentColor);background-size:0 1.5px;background-repeat:no-repeat;background-position:0 100%;
-    transition:background-size .3s;
-  }
-  .forgot:hover{background-size:100% 1.5px}
-
-  /* ---------- Submit button ---------- */
-  .submit{
-    position:relative;overflow:hidden;width:100%;height:58px;margin-top:22px;border-radius:999px;
-    border:1px solid rgba(255,255,255,.16);cursor:pointer;color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font:600 16px 'Inter',sans-serif;letter-spacing:.005em;
-    background-color:#111418;
-    background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 60%);
-    box-shadow:0 12px 24px -8px rgba(10,15,25,.55),0 2px 4px rgba(10,15,25,.3),inset 0 1px 1px rgba(255,255,255,.25);
-    transition:transform .2s,box-shadow .25s,background-color .4s;
-  }
-  .submit:hover{transform:translateY(-2px);box-shadow:0 16px 28px -8px rgba(10,15,25,.6),0 2px 4px rgba(10,15,25,.3),inset 0 1px 1px rgba(255,255,255,.25)}
-  .submit:active{transform:scale(.98)}
-  .submit::after{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);
-    transform:translateX(-120%);
-  }
-  .submit:hover::after{transform:translateX(120%);transition:transform .8s ease}
-  .submit.success{background-color:#16a34a}
-
-  .ico{
-    flex:none;width:0;height:20px;margin-left:0;opacity:0;
-    transition:width .3s,margin .3s,opacity .3s,transform .25s;
-  }
-  .arrow,.tickico{stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-  .spin{border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .submit:not(.loading):not(.success) .arrow,
-  .submit.loading .spin,
-  .submit.success .tickico{width:20px;margin-left:10px;opacity:1}
-  .submit:hover .arrow{transform:translateX(4px)}
-  .tickico path{stroke-dasharray:26;stroke-dashoffset:26;transition:stroke-dashoffset .45s .15s}
-  .submit.success .tickico path{stroke-dashoffset:0}
-
-  /* ---------- Toast ---------- */
-  .toast{
-    position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;
-    background:rgba(17,17,17,.9);color:#fff;font-size:14px;font-weight:500;
-    padding:12px 20px;border-radius:999px;pointer-events:none;z-index:10;
-    transition:opacity .3s,transform .3s;max-width:90vw;text-align:center;
-  }
-  .toast.show{opacity:1;transform:translate(-50%,0)}
-
-  /* ---------- Entrance ---------- */
-  .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--d,0s)}
-  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-
-  @media (prefers-reduced-motion:reduce){
-    .rise,.bg,.logo .d{animation:none}
-    .bubbles{display:none}
-  }
+button {
+    width: 100%;
+    padding: 12px;
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.toggle {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+.toggle a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+.toggle a:hover {
+    text-decoration: underline;
+}
+/* CSS-only switch between forms */
+#signup {
+    display: none;
+}
+#signup:target {
+    display: block;
+}
+#signup:target ~ #login {
+    display: none;
+}
+@media (max-width: 480px) {
+    .topbar {
+        padding: 0 20px;
+    }
+}
 </style>
 </head>
 <body>
-<div class="page" id="page">
-  <div class="bg" aria-hidden="true"></div>
-  <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+<header class="topbar">
+    <div class="logo" aria-label="Koolchat logo">
+  <img src="https://i.postimg.cc/rwPww7Fg/IMG-20261014-192232.png" alt="KoolChat Logo"></div>
+    <div class="brand-name">KoolChat</div>
+</header>
 
-  <header class="top">
-    <a class="brand rise" href="#signup" aria-label="Koolchat home">
-      <span class="logo">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          <circle class="d" cx="8" cy="10" r="1.15"/>
-          <circle class="d" cx="12" cy="10" r="1.15"/>
-          <circle class="d" cx="16" cy="10" r="1.15"/>
-        </svg>
-      </span>
-      <span>Koolchat</span>
-    </a>
-    <div class="switch-wrap">
-      <a class="switch glass rise" id="switchLink" href="#login" style="--d:.1s">Log in</a>
+<main>
+    <div class="container">
+        <section id="signup">
+            <h2>Create Account</h2>
+            <form action="#" method="get">
+                <label for="signup-email">Email address</label>
+                <input type="email" id="signup-email" name="signup-email" placeholder="Enter your email" autocomplete="email" required>
+
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="signup-password" placeholder="Create a password" autocomplete="new-password" minlength="6" required>
+
+                <label for="confirm-password">Confirm password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" autocomplete="new-password" minlength="6" required>
+
+                <button type="submit">Create Account</button>
+            </form>
+            <p class="toggle">Already have an account? <a href="#login">Log In</a></p>
+        </section>
+
+        <section id="login">
+            <h2>Login</h2>
+            <form action="#" method="get">
+                <label for="login-email">Email address</label>
+                <input type="email" id="login-email" name="email" placeholder="Enter your email" autocomplete="email" required>
+
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+
+                <button type="submit">Log In</button>
+            </form>
+            <p class="toggle">Don't have an account? <a href="#signup">Sign-Up</a></p>
+        </section>
     </div>
-  </header>
-
-  <main class="main">
-    <h1 class="title" id="title">Get started with Us</h1>
-    <p class="sub rise" id="sub" style="--d:.35s">Create your account and start chatting</p>
-
-    <form class="form" id="form" novalidate>
-      <div class="fgroup rise" style="--d:.45s">
-        <label class="field glass" id="emailField">
-          <svg class="lead" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          <input id="email" type="email" name="email" placeholder="Email" autocomplete="email" inputmode="email" aria-label="Email address">
-        </label>
-        <p class="hint" id="emailHint" role="alert"></p>
-      </div>
-
-      <div class="fgroup rise" style="--d:.55s">
-        <label class="field glass" id="passField">
-          <svg class="lead" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <input id="password" type="password" name="password" placeholder="Password" autocomplete="new-password" aria-label="Password">
-          <button class="eye" id="eye" type="button" aria-label="Show password">
-            <svg class="on" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg class="off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
-          </button>
-        </label>
-        <p class="hint" id="passHint" role="alert"></p>
-      </div>
-
-      <div class="row hidden" id="forgotRow">
-        <a class="forgot" id="forgot" href="#">Forgot password?</a>
-      </div>
-
-      <button class="submit rise" id="submit" type="submit" style="--d:.65s">
-        <span id="label">Create account</span>
-        <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        <span class="ico spin" aria-hidden="true"></span>
-        <svg class="ico tickico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-      </button>
-    </form>
-  </main>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const $ = id => document.getElementById(id);
-
-  const modes = {
-    signup: {
-      title: 'Get started with Us', sub: 'Create your account and start chatting',
-      btn: 'Create account', busy: 'Creating account…', done: 'Account created!',
-      other: 'Log in', otherHash: '#login', doc: 'Sign Up — Koolchat', auto: 'new-password'
-    },
-    login: {
-      title: 'Welcome back', sub: 'Log in to jump back into your chats',
-      btn: 'Log in', busy: 'Logging in…', done: 'Welcome back!',
-      other: 'Sign up', otherHash: '#signup', doc: 'Log In — Koolchat', auto: 'current-password'
-    }
-  };
-
-  const titleEl = $('title'), subEl = $('sub'), switchEl = $('switchLink');
-  const form = $('form'), emailEl = $('email'), passEl = $('password');
-  const emailField = $('emailField'), passField = $('passField');
-  const emailHint = $('emailHint'), passHint = $('passHint');
-  const forgotRow = $('forgotRow'), submitBtn = $('submit'), labelEl = $('label');
-  const toastEl = $('toast');
-  let current = null, busy = false, toastTimer;
-
-  const wait = ms => new Promise(r => setTimeout(r, ms));
-  const EASE = 'cubic-bezier(.2,.7,.2,1)';
-
-  function pop(el, delay = 0){
-    if(reduce) return;
-    el.animate(
-      [{opacity:0, transform:'translateY(12px)'}, {opacity:1, transform:'none'}],
-      {duration:480, delay, easing:EASE, fill:'backwards'}
-    );
-  }
-  function shake(el){
-    if(reduce) return;
-    el.animate(
-      [{transform:'translateX(0)'},{transform:'translateX(-7px)'},{transform:'translateX(7px)'},
-       {transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],
-      {duration:400}
-    );
-  }
-
-  function setTitle(text, first){
-    titleEl.textContent = '';
-    text.split(' ').forEach((word, i, arr) => {
-      const s = document.createElement('span');
-      s.className = 'w'; s.textContent = word;
-      titleEl.appendChild(s);
-      if(i < arr.length - 1) titleEl.appendChild(document.createTextNode(' '));
-      if(!reduce){
-        s.animate(
-          [{opacity:0, transform:'translateY(14px)', filter:'blur(8px)'},
-           {opacity:1, transform:'none', filter:'blur(0)'}],
-          {duration:700, delay:(first ? 250 : 0) + i * 90, easing:EASE, fill:'backwards'}
-        );
-      }
-    });
-  }
-
-  function hideHint(h){ h.classList.remove('show'); }
-  function showHint(h, msg){ h.textContent = msg; h.classList.add('show'); }
-
-  function setMode(m){
-    if(!modes[m]) m = 'signup';
-    if(m === current) return;
-    const first = current === null;
-    current = m;
-    const c = modes[m];
-
-    setTitle(c.title, first);
-    subEl.textContent = c.sub;
-    switchEl.textContent = c.other;
-    switchEl.setAttribute('href', c.otherHash);
-    document.title = c.doc;
-    if(!busy) labelEl.textContent = c.btn;
-    forgotRow.classList.toggle('hidden', m !== 'login');
-    passEl.setAttribute('autocomplete', c.auto);
-
-    hideHint(emailHint); hideHint(passHint);
-
-    if(!first){
-      passEl.value = '';
-      passEl.type = 'password';
-      passField.classList.remove('revealed');
-      pop(subEl, 120);
-      pop(emailField.parentElement, 180);
-      pop(passField.parentElement, 250);
-      pop(submitBtn, 320);
-    }
-  }
-
-  const modeFromHash = () => location.hash === '#login' ? 'login' : 'signup';
-  window.addEventListener('hashchange', () => setMode(modeFromHash()));
-  setMode(modeFromHash());
-
-  function toast(msg){
-    toastEl.textContent = msg;
-    toastEl.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2800);
-  }
-
-  /* password show/hide */
-  $('eye').addEventListener('click', () => {
-    const show = passEl.type === 'password';
-    passEl.type = show ? 'text' : 'password';
-    passField.classList.toggle('revealed', show);
-    $('eye').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
-    passEl.focus();
-  });
-
-  emailEl.addEventListener('input', () => hideHint(emailHint));
-  passEl.addEventListener('input', () => hideHint(passHint));
-
-  $('forgot').addEventListener('click', e => {
-    e.preventDefault();
-    toast('Password reset is not available in this demo');
-  });
-
-  /* validation + fake submit (no backend) */
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  function validate(){
-    let firstBad = null;
-    const e = emailEl.value.trim(), p = passEl.value;
-
-    if(!emailRe.test(e)){
-      showHint(emailHint, 'Enter a valid email address');
-      shake(emailField); firstBad = firstBad || emailEl;
-    } else hideHint(emailHint);
-
-    if(current === 'signup' && p.length < 6){
-      showHint(passHint, 'Password must be at least 6 characters');
-      shake(passField); firstBad = firstBad || passEl;
-    } else if(current === 'login' && !p){
-      showHint(passHint, 'Enter your password');
-      shake(passField); firstBad = firstBad || passEl;
-    } else hideHint(passHint);
-
-    if(firstBad){ firstBad.focus(); return false; }
-    return true;
-  }
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    if(busy || !validate()) return;
-    busy = true;
-    submitBtn.classList.add('loading');
-    labelEl.textContent = modes[current].busy;
-    await wait(1200);
-    submitBtn.classList.remove('loading');
-    submitBtn.classList.add('success');
-    labelEl.textContent = modes[current].done;
-    toast((current === 'signup' ? 'Account created' : 'Logged in') + ' (demo) — no backend connected');
-    await wait(2300);
-    submitBtn.classList.remove('success');
-    labelEl.textContent = modes[current].btn;
-    busy = false;
-  });
-
-  /* ---------- Floating chat bubbles ---------- */
-  (function bubbles(){
-    if(reduce) return;
-    const layer = $('bubbles'), page = $('page');
-    const rand = (a, b) => a + Math.random() * (b - a);
-    const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-
-    const texts = ['Hey! 👋','Kya haal hai?','Koolchat!','Get ready ✨','On my way!','team-ready',
-                   'Koolchat on 🔥','Check this out!','Good morning ☀️','Call you in 5','Done ✅','Haha same 😄'];
-    const reacts = ['❤️','👍','😍','✨','🔥'];
-    const grads = ['linear-gradient(135deg,#ff9a76,#ff6b9d)','linear-gradient(135deg,#7f7fff,#4facfe)',
-                   'linear-gradient(135deg,#43e97b,#38b6a5)','linear-gradient(135deg,#f6d365,#fda085)'];
-    const letters = 'ABCDEJKLMNPRSTVY'.split('');
-
-    function make(){
-      const kind = pick(['text','text','text','typing','skel','react','react']);
-      const me = kind === 'react' ? false : Math.random() < 0.45;
-      const s = rand(.7, 1.25), dur = rand(18, 32);
-
-      const el = document.createElement('div');
-      el.className = 'bubble';
-      el.style.cssText =
-        `--x:${rand(0, 78).toFixed(1)}%;--dur:${dur.toFixed(1)}s;--delay:${(-rand(0, dur)).toFixed(1)}s;` +
-        `--s:${s.toFixed(2)};--o:${rand(.55, .85).toFixed(2)};--bl:${s < .85 ? 2.4 : s < 1 ? 1.2 : 0}px;` +
-        `--sway:${rand(10, 28).toFixed(0)}px;--swd:${rand(5, 9).toFixed(1)}s`;
-
-      const sway = document.createElement('div');
-      sway.className = 'sway';
-
-      if(!me && kind !== 'react'){
-        const av = document.createElement('span');
-        av.className = 'av'; av.style.background = pick(grads); av.textContent = pick(letters);
-        sway.appendChild(av);
-      }
-
-      const msg = document.createElement('div');
-      msg.className = 'msg ' + (me ? 'me' : 'them');
-      if(kind === 'text'){
-        msg.textContent = pick(texts);
-        if(me){ const t = document.createElement('span'); t.className = 'tick'; t.textContent = '✓✓'; msg.appendChild(t); }
-      } else if(kind === 'typing'){
-        msg.classList.add('typing'); msg.innerHTML = '<i></i><i></i><i></i>';
-      } else if(kind === 'skel'){
-        msg.classList.add('skel');
-        msg.innerHTML = `<b style="width:${rand(90, 150).toFixed(0)}px"></b><b style="width:${rand(50, 100).toFixed(0)}px"></b>`;
-      } else {
-        msg.classList.add('react'); msg.textContent = pick(reacts);
-      }
-      sway.appendChild(msg);
-      el.appendChild(sway);
-      return el;
-    }
-
-    const count = window.innerWidth < 600 ? 9 : 16;
-    for(let i = 0; i < count; i++) layer.appendChild(make());
-
-    function setTravel(){ layer.style.setProperty('--travel', (page.offsetHeight + 320) + 'px'); }
-    setTravel();
-    window.addEventListener('resize', setTravel);
-  })();
-</script>
+</main>
 </body>
 </html>
