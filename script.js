@@ -20,3 +20,26 @@ const analytics = getAnalytics(app);
 
 const auth = getAuth(app);
 
+
+document.querySelector('#signup-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.querySelector('#signup-email').value;
+  const password = document.querySelector('#signup-password').value;
+  const username = document.querySelector('#signup-username').value;
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        
+      const user = userCredential.user;
+      updateProfile(user, { displayName: username })
+        .then(() => {
+          console.log("Profile updated successfully.");
+        })
+        .catch((error) => {
+          console.error("Error updating profile:", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Error creating user:", error);
+    });
+});
+
