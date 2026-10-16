@@ -1,7 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/";
-import { getAuth } from "fhttps://www.gstatic.com/firebasejs/13.0.0/";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword , updateProfile } from "https://www.gstatic.com/firebasejs/13.0.0/";
+import { initializeApp } from "https://gstatic.com";
+import { getAnalytics } from "https://gstatic.com";
+import { getAuth } from "https://gstatic.com";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://gstatic.com";
 
 
 const firebaseConfig = {
