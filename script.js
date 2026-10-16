@@ -1,7 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword , updateProfile } from "firebase/auth";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/";
+import { getAuth } from "fhttps://www.gstatic.com/firebasejs/13.0.0/";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword , updateProfile } from "https://www.gstatic.com/firebasejs/13.0.0/";
 
 
 const firebaseConfig = {
@@ -25,21 +25,15 @@ document.querySelector('#signup-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const email = document.querySelector('#signup-email').value;
   const password = document.querySelector('#signup-password').value;
-  const username = document.querySelector('#signup-username').value;
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-        
+
       const user = userCredential.user;
-      updateProfile(user, { displayName: username })
-        .then(() => {
-          console.log("Profile updated successfully.");
-        })
-        .catch((error) => {
-          console.error("Error updating profile:", error);
-        });
+      console.log("User created successfully:", user);
     })
     .catch((error) => {
       console.error("Error creating user:", error);
     });
+
 });
 
