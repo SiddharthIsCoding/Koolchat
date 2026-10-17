@@ -1,6 +1,7 @@
 import { initializeApp } from "https://gstatic.com";
 import { getAnalytics } from "https://gstatic.com";
 import { getAuth } from "https://gstatic.com";
+
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://gstatic.com";
 
 
