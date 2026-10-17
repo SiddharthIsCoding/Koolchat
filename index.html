@@ -212,10 +212,10 @@ document.querySelector('#signup-form').addEventListener('submit', async (e) => {
     .then((userCredential) => {
 
       const user = userCredential.user;
-      console.log("User created successfully:", user);
+      alert("User created successfully!");
     })
     .catch((error) => {
-      console.error("Error creating user:", error);
+      alert(`Error creating user: ${error.message}`);
     });
 
 });
@@ -228,10 +228,10 @@ document.querySelector('#login-form').addEventListener('submit', async (e) => {
     .then((userCredential) => {
 
       const user = userCredential.user;
-      console.log("User logged in successfully:", user);
+      alert("User logged in successfully!");
     })
     .catch((error) => {
-      console.error("Error logging in:", error);
+      alert(`Error logging in: ${error.message}`);
     });
 
 });
