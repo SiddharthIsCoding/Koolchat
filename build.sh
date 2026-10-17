@@ -1,3 +1,5 @@
+#1/!/bin/bash
+
 echo "window.env = { 
 FIREBASE_API_KEY: '$FIREBASE_API_KEY',
 FIREBASE_AUTH_DOMAIN: '$FIREBASE_AUTH_DOMAIN', 
